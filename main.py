@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 print('Data Analysis - Recession and Stocks Behavior')
 
 # Load data from each recession period and the quarter before
-INPUT_CSV = '../stocks/archive/stocks/MSFT.csv' # path to CSV file 
+INPUT_CSV = '../data_analysis/archive/stocks/MSFT.csv' # path to CSV file 
 
 # Date ranges
 gr_start_date = dt.datetime(2007, 12, 1) # Great Recession
@@ -107,7 +107,7 @@ graphs("Great Moderation", df, gm_start_date, gm_end_date)
 import glob
 # Combine all the CSV files
 def combine_csv():
-    path = "../stocks/archive/stocks/*.csv"
+    path = "../data_analysis/archive/stocks/*.csv"
     files = glob.glob(path)
     dfs = []
     for f in files:
