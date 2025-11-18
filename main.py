@@ -17,22 +17,22 @@ import matplotlib.pyplot as plt
 print('Data Analysis - Recession and Stocks Behavior')
 
 # Load data from each recession period and the quarter before
-INPUT_CSV = '../data_analysis/archive/stocks/MSFT.csv' # path to CSV file 
+INPUT_CSV = 'data_analysis/archive/stocks/COKE.csv' # path to CSV file 
 
 # Date ranges
 gr_start_date = dt.datetime(2007, 12, 1) # Great Recession
 gr_end_date = dt.datetime(2009, 6, 30)
 
-gr_before_start_date = dt.datetime(2007, 6, 1)
+gr_before_start_date = dt.datetime(2007, 3, 1)
 gr_before_end_date = dt.datetime(2007, 11, 30)
 
 r2001_start_date = dt.datetime(2001, 3, 1)  # 2001 Recession
 r2001_end_date = dt.datetime(2001, 11, 30)
 
-r2001_before_start_date = dt.datetime(2000, 9, 1)
+r2001_before_start_date = dt.datetime(2000, 6, 1)
 r2001_before_end_date = dt.datetime(2001, 2, 28)
 
-gm_start_date = dt.datetime(2004, 8, 1) # Great Moderation
+gm_start_date = dt.datetime(2004, 5, 1) # Great Moderation
 gm_end_date = dt.datetime(2006, 12, 31)
 
 def load_data(csv_path=INPUT_CSV):
@@ -48,9 +48,9 @@ def load_data(csv_path=INPUT_CSV):
        print(f"No CSV found at {csv_path}.")
 
 df = load_data()
-# print(df.shape)
-# print("Great Recession") 
-# print(df[gr_start_date : gr_end_date])
+print(df.shape)
+print("Great Recession - Data Set") 
+print(df[gr_start_date : gr_end_date])
 
 # print("2001 Recession") 
 # print(df[r2001_start_date : r2001_end_date])
@@ -88,7 +88,7 @@ def graphs(recession_title, df, start_date, end_date):
     plt.plot(series.index, series.values)
     plt.title(f" {recession_title} - Close Price")
     plt.xlabel("Date")
-    plt.ylabel("Close")
+    plt.ylabel("Close $")
     plt.grid(True)
     plt.show()
 
@@ -100,21 +100,19 @@ graphs("2001 Recession", df, r2001_start_date, r2001_end_date)
 
 graphs("Great Moderation", df, gm_start_date, gm_end_date)
 
-
 # Future work/working ideas
-
 # Making sure that all files are combined into one CSV for easier analysis across multiple stocks while keeping the integrity of each stock's data
 import glob
 # Combine all the CSV files
 def combine_csv():
-    path = "../data_analysis/archive/stocks/*.csv"
+    path = "data_analysis/archive/stocks/*.csv"
     files = glob.glob(path)
     dfs = []
     for f in files:
         df = pd.read_csv(f)
-        df['Symbol'] = os.path.basename(f).split('.')[0]  # Add a column for the stock symbol
+        df['Symbol'] = os.path.basename(f)
         dfs.append(df)
     combined = pd.concat(dfs, ignore_index=True)
     combined.to_csv("all_stocks_data.csv", index=False)
     return combined
-combine_csv()
+# combine_csv()
